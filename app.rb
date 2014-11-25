@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'pony'
 
 get '/' do
 	erb :entrypage
@@ -20,6 +21,8 @@ get '/charitychooser' do
 end
 
 post '/charitychooser' do
+  @typeoforganisation = params[:typeoforganisation]
+  @thecause = params[:thecause]
 
  if params[:typeoforganisation] == "Grassroots" && params[:thecause] == "Healthcare"
  	erb :grassroots_healthcare
@@ -67,7 +70,23 @@ get '/email' do
 	erb :email
 end
 
-## post '/email' do
-## ??????
-## end
+post '/' do
+  @user_name  = params[:user_name]
+  @email_address = params[:email_address]
+  @chosen_charity = params[:chosen_charity]  
+  
+Pony.mail( 
+	:to => @email_address, 
+	:from => 'nikkiravi92@gmail.com', 
+	:subject => 'Christmas Loving!', 
+	:body => 'Hi ' + @name + '! Merry Christmas! Your friend just donated to' + @chosen_charity + ' as your Christmas present! ', 
+	:via => :smtp, 
+	:via_options => { 
+		:address => 'smtp.gmail.com', 
+	    :port => '25'
+	}
+	)
+  erb :thanks
+
+end
 
