@@ -24,16 +24,16 @@ post '/charitychooser' do
   @typeoforganisation = params[:typeoforganisation]
   @thecause = params[:thecause]
 
- if params[:typeoforganisation] == "Grassroots" && params[:thecause] == "Healthcare"
+ if params[:typeoforganisation] == "Local" && params[:thecause] == "Healthcare"
  	erb :grassroots_healthcare
 
- elsif params[:typeoforganisation] == "Grassroots" && params[:thecause] == "Education"
+ elsif params[:typeoforganisation] == "Local" && params[:thecause] == "Education"
  	erb :grassroots_education
  	
- elsif params[:typeoforganisation] == "Grassroots" && params[:thecause] == "Environment"
+ elsif params[:typeoforganisation] == "Local" && params[:thecause] == "Environment"
  	erb :grassroots_environment
 
- elsif params[:typeoforganisation] == "Grassroots" && params[:thecause] == "Wildlife"
+ elsif params[:typeoforganisation] == "Local" && params[:thecause] == "Wildlife"
  	erb :grassroots_wildlife
 
  elsif params[:typeoforganisation] == "International" && params[:thecause] == "Healthcare"
