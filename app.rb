@@ -70,20 +70,26 @@ get '/email' do
 	erb :email
 end
 
-post '/' do
+post '/email' do
   @user_name  = params[:user_name]
   @email_address = params[:email_address]
   @chosen_charity = params[:chosen_charity]  
   
 Pony.mail( 
 	:to => @email_address, 
-	:from => 'nikkiravi92@gmail.com', 
 	:subject => 'Christmas Loving!', 
-	:body => 'Hi ' + @name + '! Merry Christmas! Your friend just donated to' + @chosen_charity + ' as your Christmas present! ', 
-	:via => :smtp, 
-	:via_options => { 
-		:address => 'smtp.gmail.com', 
-	    :port => '25'
+	:body => 'Hi ' + @user_name + '! Merry Christmas! Your friend just donated to' + @chosen_charity + ' as your Christmas present!', 
+	:via => 'smtp', 
+	:via_options => {
+	    :domain => "localhost.localdomain", 
+	    :address => 'smtp.gmail.com', 
+	    :port => '587',
+		#:user_name => ENV['SENDGRID_USERNAME'],
+    	#:password => ENV['SENDGRID_PASSWORD'],
+    	:user_name => 'christmascharitychooser@gmail.com',
+    	:password => 'codefirstgirls',
+	    :authentication => :plain,
+    	:enable_starttls_auto => true
 	}
 	)
   erb :thanks
